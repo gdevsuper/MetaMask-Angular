@@ -1,0 +1,14 @@
+::ng-deep .avatar-content {
+    margin-left: -12px !important;
+    border-radius: 8px !important;
+    align-items: center !important;
+    width: 40px !important;
+    height: 40px !important;
+}
+::ng-deep .avatar-container {
+    width: auto !important;
+    height: auto !important;
+}
+::ng-deep .header__profile-btn p {
+    margin-left: 10px !important;
+}
