@@ -21,7 +21,6 @@ export class MarketplaceComponent implements OnInit {
   nfts: any = [];
   currentDate = new Date();
   filteredNfts: any = [];
-  uriResponse: any = [];
   collectionList: any = [];
   selectedCollection: any = [];
   filterForm: FormGroup;
@@ -43,9 +42,6 @@ export class MarketplaceComponent implements OnInit {
         this.nfts = res;
         this.filteredNfts = res;
         this.getFilterList();
-        this.nfts.forEach((element) => {
-          self.getNftDetailFromURI(element.uri, element.id);
-        });
       },
       (error) => {
         this.utility.stopLoader();
@@ -87,15 +83,6 @@ export class MarketplaceComponent implements OnInit {
     } else {
       self.filteredNfts = self.nfts;
     }
-  }
-
-  getNftDetailFromURI(url, id) {
-    this.nftService.getNftByURL(url).subscribe(
-      (res) => {
-        this.uriResponse[id] = res;
-      },
-      (error) => {}
-    );
   }
   
   convertDate(date) {

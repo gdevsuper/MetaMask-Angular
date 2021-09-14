@@ -29,7 +29,8 @@
           <div class="col-12">
             <div class="sign__file">
               <label id="file1" for="sign__file-upload">e. g. Image, Audio, Video</label>
-              <input data-name="#file1" id="sign__file-upload" name="file" class="sign__file-upload" type="file" accept="video/mp4,video/x-m4v,video/*,.png,.jpg,.jpeg">
+              <input data-name="#file1" id="sign__file-upload" formControlName="image" class="sign__file-upload" type="file" accept="video/mp4,video/x-m4v,video/*,.png,.jpg,.jpeg">
+              <app-error-field [errorMsg]="getCreateForm.image"></app-error-field>
             </div>
           </div>
 
@@ -40,26 +41,29 @@
           <div class="col-12">
             <div class="sign__group">
               <label class="sign__label" for="itemname">Item name</label>
-              <input id="itemname" type="text" name="itemname" class="sign__input" placeholder="e. g. 'Crypto Heart'">
+              <input id="itemname" type="text"  formControlName="name" class="sign__input" placeholder="e. g. 'Crypto Heart'">
+              <app-error-field [errorMsg]="getCreateForm.name"></app-error-field>
             </div>
           </div>
 
           <div class="col-12">
             <div class="sign__group">
               <label class="sign__label" for="description">Description</label>
-              <textarea id="description" name="description" class="sign__textarea" placeholder="e. g. 'After purchasing you will able to recived...'"></textarea>
+              <textarea id="description"  formControlName="description" class="sign__textarea" placeholder="e. g. 'After purchasing you will able to recived...'"></textarea>
+              <app-error-field [errorMsg]="getCreateForm.description"></app-error-field>
             </div>
           </div>
 
           <div class="col-12">
             <div class="sign__group">
               <label class="sign__label" for="itemname">Sale Price</label>
-              <input id="itemname" type="number" name="itemname" class="sign__input" placeholder="e. g. 0.08 ETH">
+              <input id="itemname" type="number"  formControlName="price" class="sign__input" placeholder="e. g. 0.08 ETH">
+              <app-error-field [errorMsg]="getCreateForm.price"></app-error-field>
             </div>
           </div>
 
           <div class="col-12 col-xl-3">
-            <button type="button" class="sign__btn">Create item</button>
+            <button  type="button" [disabled]="!createForm.valid" (click)="upload()" class="sign__btn">Create item</button>
           </div>
         </div>
       </form>

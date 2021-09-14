@@ -60,29 +60,23 @@
                     <div class="card">
                         <a [routerLink]="['/marketplace/detail', item.id]" class="card__cover">
                             
-                            <img *ngIf="uriResponse[item.id] &&  (uriResponse[item.id]['fileType'] === 'IMAGE' || uriResponse[item.id]['fileType'] === 'image')" src="{{ uriResponse[item.id] &&  uriResponse[item.id]['image'] && (uriResponse[item.id]['fileType'] === 'IMAGE' || uriResponse[item.id]['fileType'] === 'image') ? uriResponse[item.id]['image'] : (item.image && item.fileType === 'IMAGE' ? item.image : 'https://via.placeholder.com/512x512.png?text=MEME+EXIHIBIT') }}" class="fix-height" alt="">
+                            <img src="{{ item.image && item.fileType === 'IMAGE' ? item.image : 'https://via.placeholder.com/512x512.png?text=NFT+MARKETPLACE' }}" class="fix-height" alt="">
 
-                            <video *ngIf="uriResponse[item.id] &&  uriResponse[item.id]['fileType'] !== 'IMAGE' && uriResponse[item.id]['fileType'] !== 'image'" style="width: 100%;" class="fix-height"  [src]="uriResponse[item.id]['image'] | safeUrl" controls autoplay="true" [muted]="true"></video>
-
-                            <app-countdown *ngIf="item.type === 'BID' && currentDate < convertDate(item.expiry_date)" [expiry]="item.expiry_date" [type]="'small'"></app-countdown>
+                            <!-- <video *ngIf="uriResponse[item.id] &&  uriResponse[item.id]['fileType'] !== 'IMAGE' && uriResponse[item.id]['fileType'] !== 'image'" style="width: 100%;" class="fix-height"  [src]="uriResponse[item.id]['image'] | safeUrl" controls autoplay="true" [muted]="true"></video> -->
                         </a>
                         <div class="card-main">
-                            <h3 class="card__title"><a [routerLink]="['/marketplace/detail', item.id]">{{ item.name && item.name !== '' ? item.name : (uriResponse[item.id] ? uriResponse[item.id].name : '') }}</a></h3>
-                            <h3 class="card__title"><a [routerLink]="['/marketplace/detail', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3>
+                            <h3 class="card__title"><a [routerLink]="['/marketplace/detail', item.id]">{{ item.name && item.name !== '' ? item.name : '' }}</a></h3>
+                            <!-- <h3 class="card__title"><a [routerLink]="['/marketplace/detail', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3> -->
                             <div class="card__author">
                                 <img src="/assets/img/avatars/avatar.jpg" alt="">
                                 <a  [routerLink]="">{{ item.currentOwner.name }}</a>
                             </div>
                             <div class="card__info">
                                 <div class="card__price">
-                                    <span>{{ item.type === 'SELL' ? 'Reserve price' : (item.type === 'BID' ? 'MIN BID PRICE' : 'NOT AVAILABLE PRICE') }}</span>
-                                    <span *ngIf="item.type !== 'DEFAULT'">{{ item.amount.toFixed(2)  }} BUSD</span>
+                                    <span>Reserve price</span>
+                                    <span *ngIf="item.type !== 'DEFAULT'">{{ item.price.toFixed(2)  }} BUSD</span>
                                 </div>
-                                
-                                <button class="card__likes" type="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.16,5A6.29,6.29,0,0,0,12,4.36a6.27,6.27,0,0,0-8.16,9.48l6.21,6.22a2.78,2.78,0,0,0,3.9,0l6.21-6.22A6.27,6.27,0,0,0,20.16,5Zm-1.41,7.46-6.21,6.21a.76.76,0,0,1-1.08,0L5.25,12.43a4.29,4.29,0,0,1,0-6,4.27,4.27,0,0,1,6,0,1,1,0,0,0,1.42,0,4.27,4.27,0,0,1,6,0A4.29,4.29,0,0,1,18.75,12.43Z"/></svg>
-                                    <span>{{ item.favCount }}</span>
-                                </button>
+                            
                             </div>
                         </div>
                     </div>

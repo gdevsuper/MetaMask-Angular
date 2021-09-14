@@ -19,6 +19,7 @@ export class JwtInterceptor implements HttpInterceptor {
     if (
       request.url.includes('https://memeexhibit.com/api') ||
       request.url.includes('https://api.memeexhibit.com') ||
+      request.url.includes('http://localhost:3001') ||
       request.url.includes('http://localhost:3000')
     ) {
       // append headers

@@ -43,14 +43,6 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">My offer</a>
-					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-3" aria-selected="false">My Bid</a>
-					</li>
-
-					<li class="nav-item">
 						<a class="nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-3" aria-selected="false">Transaction History</a>
 					</li>
 
@@ -84,35 +76,6 @@
 				</div>
 				</div>
 
-				<div class="tab-pane fade" id="tab-3" role="tabpanel">
-					<div class="row">
-						<!-- content -->
-						<div class="col-12 col-xl-12 order-xl-1">
-							<div class="row row--grid">
-								<div class="col-12 col-lg-12 col-xl-12">
-									<p style="color: white;padding-top: 30px;" *ngIf="userProfile?.offers?.length === 0">No Offer Request History found in your account !</p>
-								</div>
-								<div *ngFor="let item of userProfile?.offers" class="col-12 col-lg-12 col-xl-12">
-									<div class="activity" [routerLink]="['/marketplace/detail', item.nft.id]">
-										<a  [routerLink]="['/marketplace/detail', item.id]" class="activity__cover">
-													<img *ngIf="uriResponse[item.id] &&  (uriResponse[item.nft.id]['fileType'] === 'IMAGE' || uriResponse[item.nft.id]['fileType'] === 'image')" src="{{ uriResponse[item.nft.id] &&  uriResponse[item.nft.id]['image'] && (uriResponse[item.nft.id]['fileType'] === 'IMAGE' || uriResponse[item.nft.id]['fileType'] === 'image') ? uriResponse[item.nft.id]['image'] : (item.nft.image && item.nft.fileType === 'IMAGE' ? item.nft.image : 'https://via.placeholder.com/512x512.png?text=MEME+EXIHIBIT') }}" class="fix-height" alt="">
-
-												<video *ngIf="uriResponse[item.nft.id] &&  uriResponse[item.nft.id]['fileType'] !== 'IMAGE' && uriResponse[item.nft.id]['fileType'] !== 'image'" style="width: 100%;" class="fix-height"  [src]="uriResponse[item.nft.id]['image'] | safeUrl" controls autoplay="true" [muted]="true"></video>
-										</a>
-										<div class="activity__content">
-											<h3 class="activity__title"><a [routerLink]="['/marketplace/detail', item.nft.id]">{{ item.nft.name && item.nft.name !== '' ? item.nft.name : (uriResponse[item.nft.id] ? uriResponse[item.nft.id].name : '') }}</a></h3>
-											<p class="activity__text">Token Id <a>{{ item.nft.tokenId }}</a> <br>Offer Price <b>{{ item.price.toFixed(2)  }} BUSD</b></p>
-											<span class="activity__time">{{ item.createdAt | date:'short' }}</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- end collapse -->
-						</div>
-						<!-- end content -->
-					</div>
-				</div>
-
 				<div class="tab-pane fade" id="tab-5" role="tabpanel">
 					<div class="row">
 						<!-- content -->
@@ -142,36 +105,6 @@
 												</tr>
 											</tbody>
 									</table>
-								</div>
-							</div>
-							<!-- end collapse -->
-						</div>
-						<!-- end content -->
-					</div>
-				</div>
-
-				<div class="tab-pane fade" id="tab-1" role="tabpanel">
-					<div class="row">
-						<!-- content -->
-						<div class="col-12 col-xl-12 order-xl-1">
-							<div class="row row--grid">
-								<div class="col-12 col-lg-12 col-xl-12">
-									<p style="color: white;padding-top: 30px;" *ngIf="userProfile?.bids?.length === 0">No Bid Request History found in your account !</p>
-								</div>
-								<div *ngFor="let item of userProfile?.bids" class="col-12 col-lg-12 col-xl-12">
-									<div class="activity" [routerLink]="['/marketplace/detail', item.nft.id]" >
-										<a  [routerLink]="['/marketplace/detail', item.nft.id]" class="activity__cover">
-													<img *ngIf="uriResponse[item.id] &&  (uriResponse[item.nft.id]['fileType'] === 'IMAGE' || uriResponse[item.nft.id]['fileType'] === 'image')" src="{{ uriResponse[item.nft.id] &&  uriResponse[item.nft.id]['image'] && (uriResponse[item.nft.id]['fileType'] === 'IMAGE' || uriResponse[item.nft.id]['fileType'] === 'image') ? uriResponse[item.nft.id]['image'] : (item.nft.image && item.nft.fileType === 'IMAGE' ? item.nft.image : 'https://via.placeholder.com/512x512.png?text=MEME+EXIHIBIT') }}" class="fix-height" alt="">
-
-												<video *ngIf="uriResponse[item.nft.id] &&  uriResponse[item.nft.id]['fileType'] !== 'IMAGE' && uriResponse[item.nft.id]['fileType'] !== 'image'" style="width: 100%;" class="fix-height"  [src]="uriResponse[item.nft.id]['image'] | safeUrl" controls autoplay="true" [muted]="true"></video>
-										</a>
-										<div class="activity__content">
-											<h3 class="activity__title"><a [routerLink]="['/marketplace/detail', item.nft.id]">{{ item.nft.name && item.nft.name !== '' ? item.nft.name : (uriResponse[item.nft.id] ? uriResponse[item.nft.id].name : '') }}</a></h3>
-											<p class="activity__text">Token Id <a >{{ item.nft.tokenId }}</a> <br>Bid Price <b>{{ item.price.toFixed(2)  }} BUSD</b></p>
-											<p class="activity__text">Status : {{ item.status }}</p>
-											<span class="activity__time">{{ item.createdAt | date:'short' }}</span>
-										</div>
-									</div>
 								</div>
 							</div>
 							<!-- end collapse -->

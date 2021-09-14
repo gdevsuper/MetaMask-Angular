@@ -14,6 +14,15 @@ export class NftService {
     : '';
   constructor(public http: HttpClient) {}
 
+  // create New Nft
+  createNft(nftBody: Object) {
+    return this.http.post(`${this.apiUrl}nfts`, nftBody).pipe(
+      map((response: Response) => {
+        return response;
+      })
+    );
+  }
+
   // buy New Nft
   buyNft(nftBody: Object) {
     return this.http.post(`${this.apiUrl}nfts/buy-nft`, nftBody).pipe(
@@ -34,13 +43,11 @@ export class NftService {
 
   // Get all nft list role wise
   getNfts() {
-    return this.http
-      .get(`${this.apiUrl}nfts/available`)
-      .pipe(
-        map((response: Response) => {
-          return response;
-        })
-      );
+    return this.http.get(`${this.apiUrl}nfts/available`).pipe(
+      map((response: Response) => {
+        return response;
+      })
+    );
   }
 
   // Get nft by id

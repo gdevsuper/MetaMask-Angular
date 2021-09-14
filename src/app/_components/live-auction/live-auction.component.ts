@@ -16,7 +16,6 @@ export class LiveAuctionComponent implements OnInit {
 
   nfts: any = [];
   currentDate = new Date();
-  uriResponse: any = [];
 
   ngOnInit(): void {
     this.spinner.show();
@@ -69,9 +68,6 @@ export class LiveAuctionComponent implements OnInit {
     this.nftService.getNfts().subscribe(
       (res) => {
         this.nfts = res;
-        this.nfts.forEach((element) => {
-          self.getNftDetailFromURI(element.uri, element.id);
-        });
         this.utility.stopLoader();
         setTimeout(() => {
           this.reloadCarousel();
@@ -82,15 +78,6 @@ export class LiveAuctionComponent implements OnInit {
         this.utility.stopLoader();
         this.utility.showErrorAlert('Error', error);
       }
-    );
-  }
-
-  getNftDetailFromURI(url, id) {
-    this.nftService.getNftByURL(url).subscribe(
-      (res) => {
-        this.uriResponse[id] = res;
-      },
-      (error) => {}
     );
   }
 
