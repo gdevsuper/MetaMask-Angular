@@ -100,7 +100,7 @@ export class CreateNftComponent implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'Congratulations!',
-          text: 'Your have minted NFT successfully.',
+          text: 'You have minted NFT successfully.',
         }).then((result) => {
           this.router.navigate(['/manage-profile']);
         });
