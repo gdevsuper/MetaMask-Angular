@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NftService, UtilityService } from '../../../_services';
+import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
-  templateUrl: './marketplace.component.html',
-  styleUrls: ['./marketplace.component.css'],
+  templateUrl: './search-result.component.html',
+  styleUrls: ['./search-result.component.css'],
 })
-export class MarketplaceComponent implements OnInit {
+export class SearchResultComponent implements OnInit {
   constructor(
     private nftService: NftService,
     private utility: UtilityService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute
   ) {
     this.utility.updatePageSEO(
       'NFT Marketplace | Buy and Sell your NFT, and NFT Money. NFT Collections, Crypto artworks.',
       'Buy, Sell and trade your NFTs and NFT Money Secured with blockchain.'
     );
+    this.activatedRoute.params.subscribe((p) => this.getAllNfts());
   }
 
   activeTab = 'grid';
@@ -31,24 +35,29 @@ export class MarketplaceComponent implements OnInit {
       filterItems: [[]],
       sort: ['new'],
     });
+  }
+
+  ngOnChanges(): void {
     this.getAllNfts();
   }
 
   getAllNfts() {
     var self = this;
     this.utility.startLoader();
-    this.nftService.getNfts().subscribe(
-      (res) => {
-        this.utility.stopLoader();
-        this.nfts = res;
-        this.filteredNfts = res;
-        this.getFilterList();
-      },
-      (error) => {
-        this.utility.stopLoader();
-        this.utility.showErrorAlert('Error', error);
-      }
-    );
+    this.nftService
+      .searchNft(this.activatedRoute.snapshot.paramMap.get('term'))
+      .subscribe(
+        (res) => {
+          this.utility.stopLoader();
+          this.nfts = res;
+          this.filteredNfts = res;
+          this.getFilterList();
+        },
+        (error) => {
+          this.utility.stopLoader();
+          this.utility.showErrorAlert('Error', error);
+        }
+      );
   }
 
   getFilterList() {
@@ -85,20 +94,18 @@ export class MarketplaceComponent implements OnInit {
     } else {
       self.filteredNfts = self.nfts;
     }
-    
+
     if (this.filterForm.value.sort === 'new') {
       self.filteredNfts.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
     } else if (this.filterForm.value.sort === 'old') {
       self.filteredNfts.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
     } else if (this.filterForm.value.sort === 'high') {
-      self.filteredNfts.sort((a, b) => (a.price < b.price? 1 : -1));
-    } else if (this.filterForm.value.sort === 'low') {      
+      self.filteredNfts.sort((a, b) => (a.price < b.price ? 1 : -1));
+    } else if (this.filterForm.value.sort === 'low') {
       await self.filteredNfts.sort((a, b) => (a.price > b.price ? 1 : -1));
     }
   }
 
-
-  
   convertDate(date) {
     return new Date(date);
   }

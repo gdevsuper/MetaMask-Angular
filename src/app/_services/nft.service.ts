@@ -32,9 +32,9 @@ export class NftService {
     );
   }
 
-  // Claim New Nft
-  claimNft(nftBody: Object) {
-    return this.http.post(`${this.apiUrl}nfts/claim-nft`, nftBody).pipe(
+  // search  Nft
+  searchNft(text: String) {
+    return this.http.get(`${this.apiUrl}nfts/search-nft/${text}`).pipe(
       map((response: Response) => {
         return response;
       })
@@ -62,15 +62,6 @@ export class NftService {
   // update  Nft
   updateNft(nftId: String, nftBody: Object) {
     return this.http.patch(`${this.apiUrl}nfts/${nftId}`, nftBody).pipe(
-      map((response: Response) => {
-        return response;
-      })
-    );
-  }
-
-  // Get nft by URL
-  getNftByURL(url: String) {
-    return this.http.get(`${url}`).pipe(
       map((response: Response) => {
         return response;
       })

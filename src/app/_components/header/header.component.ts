@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilityService, AuthenticationService, ConnectService } from '../../_services';
+import { UtilityService, AuthenticationService, ConnectService, NftService } from '../../_services';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var $: any;
 @Component({
   selector: 'app-header',
@@ -10,18 +11,27 @@ declare var $: any;
 export class HeaderComponent implements OnInit {
   userName: string;
   userRole: string;
+  searchTerm: string;
 
   constructor(
     private utility: UtilityService,
     private authService: AuthenticationService,
     private router: Router,
+    private formBuilder: FormBuilder,
+    private nftService: NftService,
     private connectService: ConnectService
-  ) {}
+  ) {
+    
+  }
 
   balance: any = 0;
   walletAddres: any = '';
+  searchForm: FormGroup;
 
   async ngOnInit() {
+    this.searchForm = this.formBuilder.group({
+      search: [Validators.required],
+    });
     this.userName = JSON.parse(localStorage.getItem('user'))
       ? JSON.parse(localStorage.getItem('user'))['name']
       : '';
@@ -31,10 +41,7 @@ export class HeaderComponent implements OnInit {
   }
 
   async ngAfterViewInit() {
-    this.balance = await this.connectService.getWalletBlalnce();
-    console.log(this.balance);
     this.walletAddres = await this.connectService.getAddress();
-    console.log(this.walletAddres);
   }
 
   logoutAction() {
@@ -51,5 +58,17 @@ export class HeaderComponent implements OnInit {
         window.location.reload();
       }
     );
+  }
+
+  search() {
+    console.log('adfa');
+    
+    if(this.searchTerm !== ''){
+      this.router.navigate(['search', this.searchTerm]);
+    }
+  }
+
+  setSearchValue(text) {
+    this.searchTerm = text;
   }
 }  

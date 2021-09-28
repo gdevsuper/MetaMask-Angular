@@ -15,14 +15,14 @@
          <div class="main__carousel-wrap">
             <div class="main__carousel main__carousel--live owl-carousel" >
                <div *ngFor="let item of nfts" class="card">
-                  <a [routerLink]="['/marketplace/detail', item.id]" class="card__cover">
-                     <img  src="{{ item.image && item.fileType === 'IMAGE' ? item.image : 'https://via.placeholder.com/512x512.png?text=NFT+MARKETPLACE' }}" alt="" class="fix-height">
+                  <a [routerLink]="['/marketplace', item.id]" class="card__cover">
+                     <img  src="{{ item.image }}" alt="" class="fix-height">
                      <!-- <video *ngIf="uriResponse[item.id] &&  uriResponse[item.id]['fileType'] !== 'IMAGE' && uriResponse[item.id]['fileType'] !== 'image'" style="width: 100%;"  [src]="uriResponse[item.id]['image'] | safeUrl" class="fix-height" controls autoplay="true" [muted]="true"></video> -->
                      
                   </a>
                   <div class="card-main">
-                     <h3 class="card__title"><a [routerLink]="['/marketplace/detail', item.id]">{{ item.name && item.name !== '' ? item.name :  '' }}</a></h3>
-                     <!-- <h3 class="card__title"><a [routerLink]="['/marketplace/detail', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3> -->
+                     <h3 class="card__title"><a [routerLink]="['/marketplace', item.id]">{{ item.name && item.name !== '' ? item.name :  '' }}</a></h3>
+                     <!-- <h3 class="card__title"><a [routerLink]="['/marketplace', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3> -->
                      <div class="card__author card__author--verified">
                         <img src="/assets/img/avatars/avatar5.jpg" alt="">
                         <a>{{ item.currentOwner.name }}</a>
@@ -30,7 +30,7 @@
                      <div class="card__info">
                         <div class="card__price">
                            <span>Reserve price</span>
-                           <span *ngIf="item.type !== 'DEFAULT'">{{ item.price.toFixed(2)  }} BUSD</span>
+                           <span *ngIf="item.type !== 'DEFAULT'">{{ item.price.toFixed(2)  }} BNB</span>
                         </div>
                      </div>
                   </div>

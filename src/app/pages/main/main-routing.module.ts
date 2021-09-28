@@ -13,6 +13,10 @@ import { FaqComponent } from './faq/faq.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermConditionComponent } from './term-condition/term-condition.component';
 import { CreateNftComponent } from './create-nft/create-nft.component';
+import { NftDetailComponent } from './nft-detail/nft-detail.component';
+import { NftPreviewComponent } from './nft-preview/nft-preview.component';
+import { SearchResultComponent } from './search-result/search-result.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -24,18 +28,25 @@ const routes: Routes = [
       { path: 'about-us', component: AboutUsComponent },
       { path: 'contact-us', component: ContactComponent },
       { path: 'faq', component: FaqComponent },
-      { path: 'create-nft', canActivate: [ArtistGuard], component: CreateNftComponent },
+      {
+        path: 'create-nft',
+        canActivate: [ArtistGuard],
+        component: CreateNftComponent,
+      },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
       { path: 'terms-condition', component: TermConditionComponent },
       { path: 'marketplace', component: MarketplaceComponent },
+      { path: 'marketplace/:product_id', component: NftDetailComponent },
+      { path: 'search/:term', component: SearchResultComponent },
       {
         path: 'manage-profile',
         canActivate: [AuthGuard],
         component: ProfileComponent,
       },
+      { path: 'my-nft/:product_id', component: NftPreviewComponent },
     ],
   },
-];
+];  
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

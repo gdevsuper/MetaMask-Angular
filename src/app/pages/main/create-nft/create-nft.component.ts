@@ -4,6 +4,7 @@ import {
   NftService,
   ConnectService,
 } from '../../../_services';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 const IpfsHttpClient = require('ipfs-http-client');
 const ipfs = new IpfsHttpClient({
@@ -11,6 +12,7 @@ const ipfs = new IpfsHttpClient({
   port: 5001,
   protocol: 'https',
 });
+import Swal from 'sweetalert2';
 
 @Component({
   templateUrl: './create-nft.component.html',
@@ -20,6 +22,7 @@ export class CreateNftComponent implements OnInit {
   constructor(
     private utility: UtilityService,
     private formBuilder: FormBuilder,
+    private router: Router,
     private nftService: NftService,
     private connectService: ConnectService
   ) {}
@@ -66,19 +69,19 @@ export class CreateNftComponent implements OnInit {
       async function () {
         // convert image file to base64 string
 
-          byteArray = self.convertDataURIToBinary(reader.result);
-          self.utility.startLoader('Uploading document....');
-          var result = await ipfs.add(byteArray);
-          self.utility.startLoader(
-            'Document uploaded sucessfully. Please wait...'
-          );
-          self.utility.startLoader('Data encryption in progress. Please wait...');
-          var fianalJSON = self.createForm.value;
-          fianalJSON['image'] = `gateway.ipfs.io/ipfs/${result['path']}`;
-          fianalJSON['status'] = `AVAILABLE`;
-          fianalJSON['currentOwnerWalletAddress'] = self.connectService.account;  
-          self.utility.startLoader('Almost finished. Please wait...');
-          self.createNFT(fianalJSON);
+        byteArray = self.convertDataURIToBinary(reader.result);
+        self.utility.startLoader('Uploading document....');
+        var result = await ipfs.add(byteArray);
+        self.utility.startLoader(
+          'Document uploaded sucessfully. Please wait...'
+        );
+        self.utility.startLoader('Data encryption in progress. Please wait...');
+        var fianalJSON = self.createForm.value;
+        fianalJSON['image'] = `https://gateway.ipfs.io/ipfs/${result['path']}`;
+        fianalJSON['status'] = `AVAILABLE`;
+        fianalJSON['currentOwnerWalletAddress'] = self.connectService.account;
+        self.utility.startLoader('Almost finished. Please wait...');
+        self.createNFT(fianalJSON);
       },
       false
     );
@@ -94,6 +97,13 @@ export class CreateNftComponent implements OnInit {
     this.nftService.createNft(data).subscribe(
       (res) => {
         this.utility.stopLoader();
+        Swal.fire({
+          icon: 'success',
+          title: 'Congratulations!',
+          text: 'Your have minted NFT successfully.',
+        }).then((result) => {
+          this.router.navigate(['/manage-profile']);
+        });
       },
       (error) => {
         this.utility.stopLoader();

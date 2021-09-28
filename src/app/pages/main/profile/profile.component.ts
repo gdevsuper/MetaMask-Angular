@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
   imgBaseUrl = environment.IMG_BASE_URL;
 
   async ngOnInit() {
+    this.walletAddres = localStorage.getItem('walletAddress');
     // intialize Password form
     this.passwordForm = this.formBuilder.group(
       {
@@ -71,8 +72,7 @@ export class ProfileComponent implements OnInit {
 
   getUserProfile() {
     var self = this;
-    self.walletAddres = localStorage.getItem('walletAddress');
-    console.log('self.walletAddres', self.walletAddres);
+
 
     this.utility.startLoader();
     this.userService
@@ -89,15 +89,10 @@ export class ProfileComponent implements OnInit {
             email: this.userProfile.user.email,
             about_us: this.userProfile.user.about_us,
           });
-          this.userProfile.nfts.forEach((element) => {
-            self.getNftDetailFromURI(element.uri, element.id);
-          });
-          this.userProfile.offers.forEach((element) => {
-            self.getNftDetailFromURI(element.nft.uri, element.nft.id);
-          });
-          this.userProfile.bids.forEach((element) => {
-            self.getNftDetailFromURI(element.nft.uri, element.nft.id);
-          });
+          // this.userProfile.nfts.forEach((element) => {
+          //   self.getNftDetailFromURI(element.uri, element.id);
+          // });
+         
 
           this.utility.stopLoader();
         },
@@ -135,23 +130,7 @@ export class ProfileComponent implements OnInit {
     );
   }
   convertAmount(item: any) {
-    return item.transactionDetail.events
-      ? item.transactionDetail?.events?.Transfer?.returnValues?.value *
-          Math.pow(10, -18)
-      : 'NA';
-  }
-
-  getNftDetailFromURI(url, id) {
-    console.log(url);
-
-    if (!this.uriResponse[id]) {
-      this.nftService.getNftByURL(url).subscribe(
-        (res) => {
-          this.uriResponse[id] = res;
-        },
-        (error) => {}
-      );
-    }
+    return item.toFixed(5);
   }
 
   fileChangeEvent(e: File[], type: string) {

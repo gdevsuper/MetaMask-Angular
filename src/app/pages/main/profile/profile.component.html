@@ -1,4 +1,4 @@
-<div  class="main__author bg-img" style="background: url('{{ imgBaseUrl + userProfile.user.cover_pic }}');">
+<div  class="main__author bg-img" style="background: url('{{ imgBaseUrl + userProfile?.user?.cover_pic }}');">
 	<input type="file" name="cover" #cover (change)="fileChangeEvent($event.target.files, 'cover')" style="display: none;"/>
 	<button class="home__btn home__btn--clr btn-profile cover-img-btn" (click)="cover.click()">Change Cover</button>
 </div>
@@ -8,14 +8,14 @@
 			<div class="author author--page">
 				<div class="author__meta">
 					<a  class="author__avatar author__avatar--verified">
-						<img src="{{ userProfile?.user?.profile_pic === '' ? '/assets/img/avatars/avatar5.jpg' : imgBaseUrl + userProfile?.user?.profile_pic }}" alt="">
+						<img src="{{ !userProfile?.user?.profile_pic ? '/assets/img/avatars/avatar5.jpg' : imgBaseUrl + userProfile?.user?.profile_pic }}" alt="">
 					</a>
 					<form  formGroup="profilePicForm">
 						<input type="file" name="profile" #profile (change)="fileChangeEvent($event.target.files, 'profile')" formControlName="profilePic" style="display: none;"/>
 						<button class="home__btn home__btn--clr btn-profile" (click)="profile.click()">Change Picture</button>
 					</form>
-					<h1 class="author__name"><a [routerLink]="" >{{ userProfile?.user?.name }}</a></h1>
-					<h2 class="author__nickname"><a [routerLink]="">{{ userProfile?.user?.email }}</a></h2>
+					<h1 class="author__name"><a  href="#">{{ userProfile?.user?.name }}</a></h1>
+					<h2 class="author__nickname"><a href="#">{{ userProfile?.user?.email }}</a></h2>
 					
 					<p class="author__text">{{ userProfile?.user?.about_us }}</p>
 						
@@ -39,11 +39,14 @@
 				<!-- tabs nav -->
 				<ul class="nav nav-tabs profile__tabs" id="profile__tabs" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">My NFT</a>
+						<a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-2" aria-selected="false">My NFT</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Minted NFT</a>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#tab-5" role="tab" aria-controls="tab-3" aria-selected="false">Transaction History</a>
+						<a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Transaction History</a>
 					</li>
 
 					<li class="nav-item">
@@ -55,28 +58,45 @@
 
 			<!-- content tabs -->
 			<div class="tab-content">
-				<div class="tab-pane fade show active" id="tab-2" role="tabpanel">
+				<div class="tab-pane fade show active" id="tab-1" role="tabpanel">
 					<div class="row row--grid">
 						<div  class="col-12 col-sm-12 col-lg-12">
 							<p style="color: white;padding-top: 30px;" *ngIf="userProfile?.nfts?.length === 0">No NFT found in your account !</p>
 						</div>
 						<div *ngFor="let item of userProfile?.nfts" class="col-12 col-sm-6 col-lg-4">
 							<!-- card -->
-							<div class="card" [routerLink]="['/nft-detail', item.id]">
-								<a [routerLink]="['/nft-detail', item.id]" class="card__cover">
-									<img *ngIf="uriResponse[item.id] &&  (uriResponse[item.id]['fileType'] === 'IMAGE' || uriResponse[item.id]['fileType'] === 'image')" src="{{ uriResponse[item.id] &&  uriResponse[item.id]['image'] && (uriResponse[item.id]['fileType'] === 'IMAGE' || uriResponse[item.id]['fileType'] === 'image') ? uriResponse[item.id]['image'] : (item.image && item.fileType === 'IMAGE' ? item.image : 'https://via.placeholder.com/512x512.png?text=MEME+EXIHIBIT') }}" class="fix-height" alt="">
+							<div class="card" [routerLink]="['/my-nft', item.id]">
+								<a [routerLink]="['/my-nft', item.id]" class="card__cover">
+									<img src="{{ item.image }}" class="fix-height" alt="">
 
-												<video *ngIf="uriResponse[item.id] &&  uriResponse[item.id]['fileType'] !== 'IMAGE' && uriResponse[item.id]['fileType'] !== 'image'" style="width: 100%;" class="fix-height"  [src]="uriResponse[item.id]['image'] | safeUrl" controls autoplay="true" [muted]="true"></video>
+									<!-- <video *ngIf="uriResponse[item.id] &&  uriResponse[item.id]['fileType'] !== 'IMAGE' && uriResponse[item.id]['fileType'] !== 'image'" style="width: 100%;" class="fix-height"  [src]="uriResponse[item.id]['image'] | safeUrl" controls autoplay="true" [muted]="true"></video> -->
 								</a>
-								<h3 class="card__title"><a [routerLink]="['/nft-detail', item.id]">{{ item.name && item.name !== '' ? item.name : (uriResponse[item.id] ? uriResponse[item.id].name : '') }}</a></h3>
-								<h3 class="card__title"><a [routerLink]="['/marketplace/detail', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3>
-								<h4 *ngIf="item.status === 'AVAILABLE'" class="card__title"><a>On {{ item.type === 'BID' ? 'Auction' : 'Direct Sell' }}</a></h4>
+								<h3 class="card__title"><a [routerLink]="['/my-nft', item.id]">{{ item.name }}</a></h3>
+								<h3 class="card__title"><a [routerLink]="['/my-nft', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3>
 							</div>
 						</div>
-				</div>
+					</div>
 				</div>
 
-				<div class="tab-pane fade" id="tab-5" role="tabpanel">
+					<div class="tab-pane fade show" id="tab-2" role="tabpanel">
+					<div class="row row--grid">
+						<div  class="col-12 col-sm-12 col-lg-12">
+							<p style="color: white;padding-top: 30px;" *ngIf="userProfile?.mints?.length === 0">You have not minted any NFT Yet</p>
+						</div>
+							<div *ngFor="let item of userProfile?.mints" class="col-12 col-sm-6 col-lg-4">
+							<!-- card -->
+							<div class="card" [routerLink]="['/my-nft', item.id]">
+								<a [routerLink]="['/my-nft', item.id]" class="card__cover">
+									<img src="{{ item.image }}" class="fix-height" alt="">
+								</a>
+								<h3 class="card__title"><a [routerLink]="['/my-nft', item.id]">{{ item.name }}</a></h3>
+								<h3 class="card__title"><a [routerLink]="['/my-nft', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="tab-3" role="tabpanel">
 					<div class="row">
 						<!-- content -->
 						<div class="col-12 col-xl-12 order-xl-1">
@@ -99,9 +119,9 @@
 												<tr *ngFor="let item of userProfile.transactions">
 													<td scope="row">{{ item.createdAt | date:'short' }}</td>
 													<td>{{ item.type }}</td>
-													<td>{{ item.amount ? item.amount : convertAmount(item) }}</td>
-													<td><a href="https://bscscan.com/tx/{{ item.txnHash }}" target="_blank">{{ item.txnHash }}</a></td>
-													<td><a href="https://bscscan.com/address/{{ item.transactionDetail.to }}" target="_blank">{{ item.transactionDetail.to }}</a></td>
+													<td>{{ convertAmount(item.amount) }}</td>
+													<td><a href="https://testnet.bscscan.com/tx/{{ item.txnHash }}" target="_blank">{{ item.txnHash }}</a></td>
+													<td><a href="https://testnet.bscscan.com/address/{{ item.transactionDetail.to }}" target="_blank">{{ item.transactionDetail.to }}</a></td>
 												</tr>
 											</tbody>
 									</table>

@@ -18,6 +18,9 @@ import { FaqComponent } from './faq/faq.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermConditionComponent } from './term-condition/term-condition.component';
 import { CreateNftComponent } from './create-nft/create-nft.component';
+import { NftDetailComponent } from './nft-detail/nft-detail.component';
+import { NftPreviewComponent } from './nft-preview/nft-preview.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 @NgModule({
   declarations: [
     MainComponent,
@@ -32,6 +35,9 @@ import { CreateNftComponent } from './create-nft/create-nft.component';
     PrivacyPolicyComponent,
     TermConditionComponent,
     CreateNftComponent,
+    NftDetailComponent,
+    NftPreviewComponent,
+    SearchResultComponent,
   ],
   imports: [
     CommonModule,

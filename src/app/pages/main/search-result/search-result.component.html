@@ -30,9 +30,8 @@
                         <h4 class="filter__title">Filters 
                             <!-- <button type="button">Clear all</button> -->
                         </h4>
-                        
                         <form [formGroup]="filterForm">
-                            <div class="filter__group">
+                           <div class="filter__group">
                                 <label for="sort" class="filter__label">Sort by:</label>
                                 <div class="filter__select-wrap">
                                     <select formControlName="sort" name="sort" id="sort" class="filter__select">
@@ -44,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="filter__group">
-                                <label class="filter__label">Artist:</label>
+                                <label class="filter__label">Category:</label>
                                 <ul class="filter__checkboxes">
                                     <li *ngFor="let item of collectionList | keyvalue">
                                         <input  type="checkbox" id="{{ item.key }}" (change)="onChangeCategory($event, item.key)">

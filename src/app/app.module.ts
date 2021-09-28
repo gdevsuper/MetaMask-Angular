@@ -41,7 +41,7 @@ import { TwoDigitDecimalDirective } from './_directives/two-digit-decimal.direct
   declarations: [
     AppComponent,
     NotFoundComponent,
-    TwoDigitDecimalDirective,
+    TwoDigitDecimalDirective
   ],
   imports: [
     BrowserModule,
