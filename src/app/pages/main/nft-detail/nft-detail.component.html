@@ -77,7 +77,7 @@
             </div>
             <!-- end tabs -->
 						<!-- actions -->
-						<div class="asset__btns">
+						<div *ngIf="userId !== nft.currentOwner.id" class="asset__btns">
 							<a (click)="openBuyNow()"  class="asset__btn asset__btn--full asset__btn--clr open-modal">Buy Now - {{ nft.price?.toFixed(2) }} BNB</a>
 						</div>
 						<!-- end actions -->
