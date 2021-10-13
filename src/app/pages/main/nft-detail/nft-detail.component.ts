@@ -3,6 +3,7 @@ import {
   NftService,
   UtilityService,
   ConnectService,
+  UserService
 } from '../../../_services';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,6 +18,7 @@ import { environment } from './../../../../environments/environment';
 export class NftDetailComponent implements OnInit {
   constructor(
     private nftService: NftService,
+    private userService: UserService,
     private utility: UtilityService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -33,9 +35,11 @@ export class NftDetailComponent implements OnInit {
     : '';
   imgBaseUrl = environment.IMG_BASE_URL;
   nft: any = {};
+  platformFee = 5;
 
   ngOnInit(): void {
     this.getNftById();
+    this.getSettingInfo();
   }
 
   getNftById() {
@@ -69,7 +73,7 @@ export class NftDetailComponent implements OnInit {
         queryParams: { returnUrl: this.router.url },
       });
     } else {
-        $(id).modal('show');
+      $(id).modal('show');
     }
   }
 
@@ -97,12 +101,17 @@ export class NftDetailComponent implements OnInit {
 
   async buyNFT() {
     this.utility.startLoader();
-    const data = await this.connectService.buyToken(this.nft.price, this.nft.currentOwnerWalletAddress);
+    const data = await this.connectService.buyToken(
+      this.nft.price,
+      this.nft.currentOwnerWalletAddress,
+      this.platformFee
+    );
     console.log(data);
     if (data) {
       Object.assign(data, {
         nft: this.nft.id,
         user: this.userId,
+        platformFee: this.platformFee,
       });
       this.nftService.buyNft(data).subscribe(
         (res) => {
@@ -138,6 +147,22 @@ export class NftDetailComponent implements OnInit {
     this.nftService.releaseNft(this.nft.id).subscribe(
       (res) => {
         this.utility.stopLoader();
+        console.log(res);
+      },
+      (error) => {
+        this.utility.stopLoader();
+        this.utility.showErrorAlert('Error', error);
+      }
+    );
+  }
+
+  // get setting info
+  getSettingInfo() {
+    this.utility.startLoader();
+    this.userService.getSettingInfo().subscribe(
+      (res) => {
+        this.utility.stopLoader();
+        this.platformFee = res['platformFee'];
         console.log(res);
       },
       (error) => {

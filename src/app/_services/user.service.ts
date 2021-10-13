@@ -43,10 +43,19 @@ export class UserService {
 
   // Add Picture
   uploadPicture(file: File, type: any) {
-     var fd = new FormData();
+    var fd = new FormData();
     fd.append('file', file);
     fd.append('type', type);
     return this.http.post(`${this.apiUrl}users/update-picture`, fd).pipe(
+      map((response: Response) => {
+        return response;
+      })
+    );
+  }
+
+  // get setting info
+  getSettingInfo() {
+    return this.http.get(`${this.apiUrl}users/get-admin-setting`).pipe(
       map((response: Response) => {
         return response;
       })

@@ -61,7 +61,7 @@ export class ConnectService {
     return window.web3.utils.toHex(value);
   }
 
-  public async buyToken(amount, currentOwnerWalletAddress) {
+  public async buyToken(amount, currentOwnerWalletAddress, platformFee) {
     // var contract = await this.connectContract();
     this.contract = await new window.web3.eth.Contract(
       tokenAbis,
@@ -70,7 +70,7 @@ export class ConnectService {
     let tokenId = await this.contract.methods.nextTokenId().call();
     console.log('tokenId', tokenId);
 
-    let ownerFee: any = (amount * 10) / 100;
+    let ownerFee: any = (amount * platformFee) / 100;
     let sellerFee: any = amount - ownerFee;
     let finalData = {
       ownerFee: ownerFee,
