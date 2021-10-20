@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NftService, UtilityService } from '../../../_services';
@@ -19,6 +20,7 @@ export class MarketplaceComponent implements OnInit {
 
   activeTab = 'grid';
   nfts: any = [];
+  baseImageUrl = environment.IMG_BASE_URL;
   currentDate = new Date();
   filteredNfts: any = [];
   collectionList: any = [];

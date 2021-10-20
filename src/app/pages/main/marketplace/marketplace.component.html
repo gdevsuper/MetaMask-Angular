@@ -80,7 +80,7 @@
                             <h3 class="card__title"><a [routerLink]="['/marketplace', item.id]">{{ item.name && item.name !== '' ? item.name : '' }}</a></h3>
                             <!-- <h3 class="card__title"><a [routerLink]="['/marketplace', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3> -->
                             <div class="card__author">
-                                <img src="/assets/img/avatars/avatar.jpg" alt="">
+                                <img src="{{ item.currentOwner.profile_pic ? baseImageUrl + item.currentOwner.profile_pic : '/assets/img/avatars/avatar.jpg' }}" alt="">
                                 <a  [routerLink]="">{{ item.currentOwner.name }}</a>
                             </div>
                             <div class="card__info">

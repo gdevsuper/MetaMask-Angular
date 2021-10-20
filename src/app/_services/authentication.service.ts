@@ -50,6 +50,7 @@ export class AuthenticationService {
                 email: response['user']['email'],
                 name: response['user']['name'],
                 role: response['user']['role'],
+                profile_pic: response['user']['profile_pic'],
                 email_verified_at: response['user']['email_verified_at'],
                 id: response['user']['id'],
               })

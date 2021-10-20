@@ -42,12 +42,14 @@ export class NftService {
   }
 
   // Get all nft list role wise
-  getNfts() {
-    return this.http.get(`${this.apiUrl}nfts/available`).pipe(
-      map((response: Response) => {
-        return response;
-      })
-    );
+  getNfts(isFeatured : boolean = false) {
+    return this.http
+      .get(`${this.apiUrl}nfts/available?isFeatured=${isFeatured}`)
+      .pipe(
+        map((response: Response) => {
+          return response;
+        })
+      );
   }
 
   // Get nft by id

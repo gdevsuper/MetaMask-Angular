@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 declare var $: any;
 import { NftService, UtilityService } from '../../_services';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-live-auction',
   templateUrl: './live-auction.component.html',
@@ -16,6 +17,7 @@ export class LiveAuctionComponent implements OnInit {
 
   nfts: any = [];
   currentDate = new Date();
+  baseImageUrl = environment.IMG_BASE_URL;
 
   ngOnInit(): void {
     this.spinner.show();
@@ -65,7 +67,7 @@ export class LiveAuctionComponent implements OnInit {
   getAllNfts() {
     var self = this;
     this.utility.startLoader();
-    this.nftService.getNfts().subscribe(
+    this.nftService.getNfts(true).subscribe(
       (res) => {
         this.nfts = res;
         this.utility.stopLoader();

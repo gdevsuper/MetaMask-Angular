@@ -596,6 +596,7 @@ body::-webkit-scrollbar-thumb {
   pointer-events: none;
 }
 .header__profile-btn img {
+  object-fit: cover;
   display: none;
   width: 40px !important;
   height: 40px;
@@ -2238,6 +2239,7 @@ body::-webkit-scrollbar-thumb {
 .card__author img {
   display: block;
   overflow: hidden;
+  object-fit: cover;
   width: 40px !important;
   height: 40px;
   border-radius: 10px;

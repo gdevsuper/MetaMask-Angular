@@ -40,12 +40,12 @@
 
 			<div *ngIf="userName && userName !== ''" class="header__action header__action--profile">
 				<a class="header__profile-btn header__profile-btn--verified" href="#" role="button" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<ngx-avatar name="{{ userName }}"></ngx-avatar>
+					<!-- <ngx-avatar name="{{ userName }}"></ngx-avatar> -->
+					 <img src="{{ userPic }}" alt="">
 					<div>
-						<p>{{ userName }}</p>
-						<!-- <span>784.89 ETH</span> -->
+					<p>{{ userName }}</p>
 					</div>
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"></path></svg>
+					<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"></path></svg> -->
 				</a>
 
 				<ul class="dropdown-menu header__profile-menu" aria-labelledby="dropdownMenuProfile">
