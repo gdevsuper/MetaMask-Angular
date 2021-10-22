@@ -36,6 +36,8 @@ export class CreateNftComponent implements OnInit {
       description: [null, [Validators.required]],
       image: [null, [Validators.required]],
       price: [null, [Validators.required]],
+      category: [null, [Validators.required]],
+      link: [null],
     });
   }
 
@@ -60,35 +62,47 @@ export class CreateNftComponent implements OnInit {
     const file = (<HTMLInputElement>(
       document.getElementById('sign__file-upload')
     )).files[0];
-    var self = this;
-    const reader = new FileReader();
-    let byteArray;
+    console.log(file.size);
+    
+    if (file.size <= 102400000){
+      var self = this;
+      const reader = new FileReader();
+      let byteArray;
 
-    reader.addEventListener(
-      'loadend',
-      async function () {
-        // convert image file to base64 string
+      reader.addEventListener(
+        'loadend',
+        async function () {
+          // convert image file to base64 string
 
-        byteArray = self.convertDataURIToBinary(reader.result);
-        self.utility.startLoader('Uploading document....');
-        var result = await ipfs.add(byteArray);
-        self.utility.startLoader(
-          'Document uploaded sucessfully. Please wait...'
-        );
-        self.utility.startLoader('Data encryption in progress. Please wait...');
-        var fianalJSON = self.createForm.value;
-        fianalJSON['image'] = `https://gateway.ipfs.io/ipfs/${result['path']}`;
-        fianalJSON['status'] = `AVAILABLE`;
-        fianalJSON['currentOwnerWalletAddress'] = self.connectService.account;
-        self.utility.startLoader('Almost finished. Please wait...');
-        self.createNFT(fianalJSON);
-      },
-      false
-    );
-
-    if (file) {
-      reader.readAsDataURL(file);
+          byteArray = self.convertDataURIToBinary(reader.result);
+          self.utility.startLoader('Uploading document....');
+          var result = await ipfs.add(byteArray);
+          self.utility.startLoader(
+            'Document uploaded sucessfully. Please wait...'
+          );
+          self.utility.startLoader(
+            'Data encryption in progress. Please wait...'
+          );
+          var fianalJSON = self.createForm.value;
+          fianalJSON[
+            'image'
+          ] = `https://gateway.ipfs.io/ipfs/${result['path']}`;
+          fianalJSON['status'] = `AVAILABLE`;
+          fianalJSON['currentOwnerWalletAddress'] = self.connectService.account;
+          self.utility.startLoader('Almost finished. Please wait...');
+          self.createNFT(fianalJSON);
+        },
+        false
+      );
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    } else {
+       this.utility.showErrorAlert('Error', 'File size must be less than 100Mb');
     }
+
+    
+      
   }
 
   createNFT(data) {

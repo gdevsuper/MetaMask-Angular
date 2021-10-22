@@ -29,10 +29,11 @@
           <div class="col-12">
             <div class="sign__file">
               <label id="file1" for="sign__file-upload">e. g. Image, Audio, Video</label>
-              <input data-name="#file1" id="sign__file-upload" formControlName="image" class="sign__file-upload" type="file" accept="video/mp4,video/x-m4v,video/*,.png,.jpg,.jpeg">
+              <input data-name="#file1" id="sign__file-upload" formControlName="image" class="sign__file-upload" type="file" accept=".png,.jpg,.jpeg,.gif">
               <app-error-field [errorMsg]="getCreateForm.image"></app-error-field>
             </div>
           </div>
+         
 
           <div class="col-12">
             <h4 class="sign__title">Item details</h4>
@@ -43,6 +44,26 @@
               <label class="sign__label" for="itemname">Item name</label>
               <input id="itemname" type="text"  formControlName="name" class="sign__input" placeholder="e. g. 'Crypto Heart'">
               <app-error-field [errorMsg]="getCreateForm.name"></app-error-field>
+            </div>
+          </div>
+
+           <div class="col-12">
+            <div class="sign__group">
+              <label class="sign__label" for="itemname">Category</label>
+              <select class="sign__input" formControlName="category">
+                <option selected disabled>Select Category</option>
+                <option value="Image">Image</option>
+                <option value="Video">Video</option>
+              </select>
+              <app-error-field [errorMsg]="getCreateForm.category"></app-error-field>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="sign__group">
+              <label class="sign__label" for="itemname">Item Link</label>
+              <input id="link" type="text"  formControlName="link" class="sign__input" placeholder="Link">
+              <app-error-field [errorMsg]="getCreateForm.link"></app-error-field>
             </div>
           </div>
 

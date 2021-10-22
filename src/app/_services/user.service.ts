@@ -61,4 +61,15 @@ export class UserService {
       })
     );
   }
+
+  // get setting info
+  getArtistProfile(userId) {
+    return this.http
+      .get(`${this.apiUrl}users/get-artist-profile/${userId}`)
+      .pipe(
+        map((response: Response) => {
+          return response;
+        })
+      );
+  }
 }

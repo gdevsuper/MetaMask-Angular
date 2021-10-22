@@ -41,7 +41,7 @@
 								<span>Creator</span>
 								<div class="asset__author asset__author--verified">
 									<img src="{{ nft?.currentOwner?.profile_pic ? imgBaseUrl + nft.currentOwner.profile_pic : '/assets/img/avatars/avatar9.jpg' }}" alt="">
-									<a href="#">{{ nft?.currentOwner?.name }}</a>
+									<a [routerLink]="['/artist-profile', nft?.currentOwner?.id]">{{ nft?.currentOwner?.name }}</a>
 								</div>
 							</li>
 						</ul>
@@ -67,6 +67,10 @@
                      <li>
                         <span>Document Link</span>
                         <p> <a href="{{ nft.image }}" target="_blank">Click Here</a></p>
+                     </li>
+										 <li *ngIf="nft.link">
+                        <span>Link</span>
+                        <p> <a href="{{ nft.link }}" target="_blank">Click Here</a></p>
                      </li>
                      <li>
                         <span>Owner Wallet Address</span>

@@ -25,8 +25,10 @@ export class MarketplaceComponent implements OnInit {
   filteredNfts: any = [];
   collectionList: any = [];
   selectedCollection: any = [];
+  selectedCategory: any = [];
   filterForm: FormGroup;
   p: number = 1;
+  categoryList = ['Image', 'Video'];
 
   ngOnInit(): void {
     this.filterForm = this.formBuilder.group({
@@ -62,7 +64,7 @@ export class MarketplaceComponent implements OnInit {
     });
   }
 
-  onChangeCategory(event, item: any) {
+  onChangeArtist(event, item: any) {
     // Use appropriate model type instead of any
     if (this.selectedCollection.indexOf(item) > -1) {
       const index = this.selectedCollection.indexOf(item);
@@ -71,6 +73,18 @@ export class MarketplaceComponent implements OnInit {
       }
     } else {
       this.selectedCollection.push(item);
+    }
+  }
+
+  onChangeCategory(event, item: any) {
+    // Use appropriate model type instead of any
+    if (this.selectedCategory.indexOf(item) > -1) {
+      const index = this.selectedCategory.indexOf(item);
+      if (index > -1) {
+        this.selectedCategory.splice(index, 1);
+      }
+    } else {
+      this.selectedCategory.push(item);
     }
   }
 
@@ -87,20 +101,24 @@ export class MarketplaceComponent implements OnInit {
     } else {
       self.filteredNfts = self.nfts;
     }
-    
+
+     if (this.selectedCategory.length > 0) {
+       self.filteredNfts = self.filteredNfts.filter((element) => {
+         return self.selectedCategory.indexOf(element.category) > -1;
+       });
+     }
+
     if (this.filterForm.value.sort === 'new') {
       self.filteredNfts.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
     } else if (this.filterForm.value.sort === 'old') {
       self.filteredNfts.sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1));
     } else if (this.filterForm.value.sort === 'high') {
-      self.filteredNfts.sort((a, b) => (a.price < b.price? 1 : -1));
-    } else if (this.filterForm.value.sort === 'low') {      
+      self.filteredNfts.sort((a, b) => (a.price < b.price ? 1 : -1));
+    } else if (this.filterForm.value.sort === 'low') {
       await self.filteredNfts.sort((a, b) => (a.price > b.price ? 1 : -1));
     }
   }
 
-
-  
   convertDate(date) {
     return new Date(date);
   }

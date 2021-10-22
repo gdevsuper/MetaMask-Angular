@@ -21,6 +21,7 @@ import { CreateNftComponent } from './create-nft/create-nft.component';
 import { NftDetailComponent } from './nft-detail/nft-detail.component';
 import { NftPreviewComponent } from './nft-preview/nft-preview.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
 @NgModule({
   declarations: [
     MainComponent,
@@ -38,6 +39,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
     NftDetailComponent,
     NftPreviewComponent,
     SearchResultComponent,
+    ArtistProfileComponent,
   ],
   imports: [
     CommonModule,

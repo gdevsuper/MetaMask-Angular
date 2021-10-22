@@ -25,7 +25,7 @@
                      <!-- <h3 class="card__title"><a [routerLink]="['/marketplace', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3> -->
                      <div class="card__author card__author--verified">
                         <img src="{{ item.currentOwner.profile_pic ? baseImageUrl + item.currentOwner.profile_pic : '/assets/img/avatars/avatar.jpg' }}" alt="">
-                        <a>{{ item.currentOwner.name }}</a>
+                        <a [routerLink]="['/artist-profile', item.currentOwner.id]" >{{ item.currentOwner.name }}</a>
                      </div>
                      <div class="card__info">
                         <div class="card__price">

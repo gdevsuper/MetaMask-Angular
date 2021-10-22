@@ -26,10 +26,20 @@ export class RegisterComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       name: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ],
+      ],
       password: [null, Validators.required],
       terms: [null, [Validators.required]],
       role: ['user', [Validators.required]],
+      // fb_link: [null, [Validators.required]],
+      // twitter_link: [null, [Validators.required]],
+      // opensea_link: [null, [Validators.required]],
     });
 
     // this.getAccountAndBalance()

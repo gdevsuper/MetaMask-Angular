@@ -16,6 +16,7 @@ import { CreateNftComponent } from './create-nft/create-nft.component';
 import { NftDetailComponent } from './nft-detail/nft-detail.component';
 import { NftPreviewComponent } from './nft-preview/nft-preview.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'terms-condition', component: TermConditionComponent },
       { path: 'marketplace', component: MarketplaceComponent },
       { path: 'marketplace/:product_id', component: NftDetailComponent },
+      { path: 'artist-profile/:artist_id', component: ArtistProfileComponent },
       { path: 'search/:term', component: SearchResultComponent },
       {
         path: 'manage-profile',

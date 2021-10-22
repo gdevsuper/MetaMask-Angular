@@ -47,8 +47,18 @@
                                 <label class="filter__label">Artist:</label>
                                 <ul class="filter__checkboxes">
                                     <li *ngFor="let item of collectionList | keyvalue">
-                                        <input  type="checkbox" id="{{ item.key }}" (change)="onChangeCategory($event, item.key)">
+                                        <input  type="checkbox" id="{{ item.key }}" (change)="onChangeArtist($event, item.key)">
                                         <label for="{{ item.key }}">{{ item.value }}</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                             <div class="filter__group">
+                                <label class="filter__label">Category:</label>
+                                <ul class="filter__checkboxes">
+                                    <li *ngFor="let item of categoryList">
+                                        <input  type="checkbox" id="{{ item }}" (change)="onChangeCategory($event, item)">
+                                        <label for="{{ item }}">{{ item.toString() }}</label>
                                     </li>
                                 </ul>
                             </div>
@@ -81,7 +91,7 @@
                             <!-- <h3 class="card__title"><a [routerLink]="['/marketplace', item.id]">NFT Token Id: {{ item.tokenId }}</a></h3> -->
                             <div class="card__author">
                                 <img src="{{ item.currentOwner.profile_pic ? baseImageUrl + item.currentOwner.profile_pic : '/assets/img/avatars/avatar.jpg' }}" alt="">
-                                <a  [routerLink]="">{{ item.currentOwner.name }}</a>
+                                <a  [routerLink]="['/artist-profile', item.currentOwner.id]">{{ item.currentOwner.name }}</a>
                             </div>
                             <div class="card__info">
                                 <div class="card__price">
