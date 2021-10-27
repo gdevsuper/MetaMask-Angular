@@ -46,7 +46,7 @@ export class AuthComponent implements OnInit {
         (res) => {
           this.utility.stopLoader()
           if (
-            res['user']['role'] === 'admin' ||
+            res['user']['role'] === 'user' ||
             res['user']['role'] === 'artist'
           ) {
             this.utility.showSuccessAlert('Success!', 'Logged in successfully');
