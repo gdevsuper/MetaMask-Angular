@@ -59,6 +59,9 @@ export class ProfileComponent implements OnInit {
       name: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       about_us: [null, [Validators.required]],
+      fb_link: [null],
+      twitter_link: [null],
+      opensea_link: [null],
     });
 
     await this.connectService.getUserBalance();
@@ -90,6 +93,9 @@ export class ProfileComponent implements OnInit {
             name: this.userProfile.user.name,
             email: this.userProfile.user.email,
             about_us: this.userProfile.user.about_us,
+            fb_link: this.userProfile.user.fb_link,
+            twitter_link: this.userProfile.user.twitter_link,
+            opensea_link: this.userProfile.user.opensea_link,
           });
           this.utility.stopLoader();
         },
