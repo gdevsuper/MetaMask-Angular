@@ -46,9 +46,10 @@
 							<!-- card -->
 							<div class="card" [routerLink]="['/marketplace', item.id]">
 								<a [routerLink]="['/marketplace', item.id]" class="card__cover">
-									<img src="{{ item.image }}" class="fix-height" alt="">
+									<img *ngIf="item.fileType.includes('image')" src="{{ item.image }}" class="fix-height" alt="">
 
-									<!-- <video *ngIf="uriResponse[item.id] &&  uriResponse[item.id]['fileType'] !== 'IMAGE' && uriResponse[item.id]['fileType'] !== 'image'" style="width: 100%;" class="fix-height"  [src]="uriResponse[item.id]['image'] | safeUrl" controls autoplay="true" [muted]="true"></video> -->
+									<video *ngIf="item.fileType.includes('video')" style="width: 100%;" class="fix-height"  [src]="item.image | safeUrl" controls autoplay="true" [muted]="true"></video>
+								
 								</a>
 								<h3 class="card__title"><a [routerLink]="['/marketplace', item.id]">{{ item.name }}</a></h3>
 							</div>

@@ -23,7 +23,9 @@
 				<!-- content -->
 				<div class="col-12 col-xl-8">
 					<div class="asset__item">
-						<a class="asset__img" href="#"><img src="{{ nft.image }}" alt=""></a>					
+						<a *ngIf="nft.fileType.includes('image')" class="asset__img" href="#"><img src="{{ nft.image }}" alt=""></a>
+						  <video controlsList="nodownload" *ngIf="nft.fileType.includes('video')" style="width: 100%;" class="fix-height"  [src]="nft.image | safeUrl" controls autoplay="true" [muted]="true">
+            </video>	
 					</div>
 				</div>
 				<!-- end content -->

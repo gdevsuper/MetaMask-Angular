@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NftService, UtilityService } from '../../../_services';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { environment } from 'src/environments/environment';
 @Component({
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.css'],
@@ -28,6 +28,7 @@ export class SearchResultComponent implements OnInit {
   collectionList: any = [];
   selectedCollection: any = [];
   filterForm: FormGroup;
+  imgBaseUrl = environment.IMG_BASE_URL;
   p: number = 1;
 
   ngOnInit(): void {

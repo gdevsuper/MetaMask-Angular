@@ -62,7 +62,7 @@ export class CreateNftComponent implements OnInit {
     const file = (<HTMLInputElement>(
       document.getElementById('sign__file-upload')
     )).files[0];
-    console.log(file.size);
+    console.log(file);
     
     if (file.size <= 102400000){
       var self = this;
@@ -88,6 +88,7 @@ export class CreateNftComponent implements OnInit {
             'image'
           ] = `https://gateway.ipfs.io/ipfs/${result['path']}`;
           fianalJSON['status'] = `AVAILABLE`;
+          fianalJSON['fileType'] = file.type;
           fianalJSON['currentOwnerWalletAddress'] = self.connectService.account;
           self.utility.startLoader('Almost finished. Please wait...');
           self.createNFT(fianalJSON);
