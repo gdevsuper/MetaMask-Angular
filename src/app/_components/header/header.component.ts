@@ -35,6 +35,7 @@ export class HeaderComponent implements OnInit {
   balance: any = 0;
   walletAddres: any = '';
   searchForm: FormGroup;
+  searchResults: any = [];
 
   async ngOnInit() {
     this.searchForm = this.formBuilder.group({
@@ -69,14 +70,35 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
-    console.log('adfa');
-
     if (this.searchTerm !== '') {
       this.router.navigate(['search', this.searchTerm]);
     }
   }
 
+  redirect(id) {
+    console.log(id);
+    
+      this.router.navigate(['/marketplace', id]);
+  }
+
   setSearchValue(text) {
     this.searchTerm = text;
+    if (text !== '') {
+      this.searchResult();
+    } else {
+      this.searchResults = [];
+    }
+  }
+
+  searchResult() {
+    this.nftService.searchNft(this.searchTerm).subscribe(
+      (res) => {
+        this.searchResults = [];
+        this.searchResults = res;
+      },
+      (error) => {
+        this.utility.showErrorAlert('Error', error);
+      }
+    );
   }
 }  

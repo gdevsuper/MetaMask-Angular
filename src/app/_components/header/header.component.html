@@ -7,10 +7,18 @@
 			</a>
 		</div>
 
-		<form [formGroup]="searchForm" class="header__search">
-			<input type="text" (change)="setSearchValue($event.target.value)"  placeholder="Search items, collections, and creators">
-			<button type="button" (click)="search()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"/></svg></button>
-			<button type="button" (click)="search()" class="close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button>
+		<form  class="header__search search">
+			<input type="text" (input)="setSearchValue($event.target.value)"  placeholder="Search items, collections, and creators">
+			<ul class="results" id="results">
+				<ng-container *ngIf="searchResults.length > 0">
+					<li (click)="redirect(item.id)" *ngFor="let item of searchResults"><a (click)="redirect(item.id)" [routerLink]="['/marketplace', item.id]">{{ item.name }}<br /><span>{{ item.description.substring(0, 50) }}</span></a></li>
+				</ng-container>
+				<ng-container *ngIf="searchResults.length === 0">
+					<li><a>No Results Found</a></li>
+				</ng-container>
+		 </ul>
+			<button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"/></svg></button>
+			<button type="button"  class="close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button>
 		</form>
 
 		<div class="header__menu">
