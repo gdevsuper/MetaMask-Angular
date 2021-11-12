@@ -121,8 +121,8 @@
 													<td scope="row">{{ item.createdAt | date:'short' }}</td>
 													<td>{{ item.type }}</td>
 													<td>{{ convertAmount(item.amount) }}</td>
-													<td><a href="https://testnet.bscscan.com/tx/{{ item.txnHash }}" target="_blank">{{ item.txnHash }}</a></td>
-													<td><a href="https://testnet.bscscan.com/address/{{ item.transactionDetail.to }}" target="_blank">{{ item.transactionDetail.to }}</a></td>
+													<td><a href="https://rinkeby.etherscan.io/tx/{{ item.txnHash }}" target="_blank">{{ item.txnHash }}</a></td>
+													<td><a href="https://rinkeby.etherscan.io/address/{{ item.transactionDetail.to }}" target="_blank">{{ item.transactionDetail.to }}</a></td>
 												</tr>
 											</tbody>
 									</table>
