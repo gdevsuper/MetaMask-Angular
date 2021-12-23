@@ -3,7 +3,7 @@
 	<div class="header__content">
 		<div class="header__logo">
 			<a [routerLink]="['/']" >
-					<img src="assets/img/logo.svg" alt="">
+					<img src="assets/img/logo.svg" alt="ViGallery">
 			</a>
 		</div>
 
@@ -29,13 +29,13 @@
 					<li class="header__nav-item nav-action">
 					<a [routerLink]="['/about-us']"  class="header__nav-link">About Us</a>
 				</li>
-					<li class="header__nav-item nav-action">
+<!-- 					<li class="header__nav-item nav-action">
 					<a [routerLink]="['/blogs']"  class="header__nav-link">Blogs</a>
-				</li>
+				</li> -->
 				<li class="header__nav-item nav-action">
 					<a [routerLink]="['/contact-us']"  class="header__nav-link">Contact Us</a>
 				</li>
-				<li *ngIf="userRole === 'artist'" class="header__nav-item nav-action">
+				<li  *ngIf="userRole === 'artist' || userRole === 'user'" class="header__nav-item nav-action" >
 					<a [routerLink]="['/create-nft']"  class="header__nav-link">Create NFT</a>
 				</li>
 			</ul>

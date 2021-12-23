@@ -13,7 +13,7 @@ export class ArtistGuard implements CanActivate {
       ? JSON.parse(localStorage.getItem('user'))['role']
       : '';
     
-    if (role === 'artist') {
+    if (role === 'artist' || role === 'user') {
       return true;
     }
     return false;

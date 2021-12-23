@@ -20,7 +20,7 @@ export class ConnectService {
       alert('Non-Ethereum browser detected. Install MetaMask');
     } else {
       if (typeof window.web3 !== 'undefined') {
-        this.web3 = window.web3.currentProvider;
+        this.web3 =  new Web3(window['ethereum'] || window.web3.currentProvider); // window.web3.currentProvider;
       } else {
         this.web3 = new Web3.providers.HttpProvider('http://localhost:8545');
       }
@@ -36,7 +36,7 @@ export class ConnectService {
       window.ethereum.on('accountsChanged', function (accounts) {
         window.location.reload();
       });
-      window.ethereum.on('networkChanged', function (networkId) {
+      window.ethereum.on('chainChanged', function (networkId) {
         window.location.reload();
       });
     }
@@ -46,7 +46,7 @@ export class ConnectService {
     let enable = false;
     await new Promise(async (resolve, reject) => {
       if (window.ethereum) {
-        enable = await window.ethereum.enable();
+        enable =  await window.ethereum.request({ method: 'eth_requestAccounts',}); //await window.ethereum.send('eth_requestAccounts'); //.enable();
 
         if (enable) {
           this.getUserBalance();
@@ -81,7 +81,6 @@ export class ConnectService {
     };
     ownerFee = ownerFee.toFixed(5) * 10 ** 18;
     sellerFee = sellerFee.toFixed(5) * 10 ** 18;
-
     var receipt = await this.contract.methods
       .mint(
         environment.OWNER_ADDRESS,
@@ -161,7 +160,7 @@ export class ConnectService {
 
   async getAddress() {
     if (typeof window.web3 !== 'undefined') {
-      let enable = await window.ethereum.enable();
+      let enable = await window.ethereum.request({ method: 'eth_requestAccounts',}); //await window.ethereum.enable();
       console.log('enable', enable);
 
       if (enable && enable.length > 0) {

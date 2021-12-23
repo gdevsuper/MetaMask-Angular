@@ -277,7 +277,7 @@ body::-webkit-scrollbar-thumb {
 }
 .header__logo img {
   width: auto;
-  height: 40px;
+  height: 18px;
   display: block;
 }
 .header__actions {
@@ -4622,7 +4622,7 @@ body::-webkit-scrollbar-thumb {
 }
 .footer__logo img {
   width: auto;
-  height: 40px;
+  height: 20px;
   display: block;
 }
 .footer__tagline {
@@ -4925,7 +4925,7 @@ body::-webkit-scrollbar-thumb {
 }
 .sign__logo img {
   width: auto;
-  height: 50px;
+  height: 25px;
 }
 .sign__title {
   font-size: 16px;

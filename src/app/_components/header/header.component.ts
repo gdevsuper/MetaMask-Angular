@@ -38,11 +38,12 @@ export class HeaderComponent implements OnInit {
   searchResults: any = [];
 
   async ngOnInit() {
+    console.log(localStorage.getItem('user'));
     this.searchForm = this.formBuilder.group({
       search: [Validators.required],
     });
     this.userName = JSON.parse(localStorage.getItem('user'))
-      ? JSON.parse(localStorage.getItem('user'))['name']
+      ? JSON.parse(localStorage.getItem('user')) ['name']
       : '';
     this.userRole = JSON.parse(localStorage.getItem('user'))
       ? JSON.parse(localStorage.getItem('user'))['role']
