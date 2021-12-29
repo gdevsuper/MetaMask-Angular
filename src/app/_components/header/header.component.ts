@@ -4,6 +4,7 @@ import { UtilityService, AuthenticationService, ConnectService, NftService } fro
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var $: any;
+declare let window:any;
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private nftService: NftService,
-    private connectService: ConnectService
+    private connectService: ConnectService,
   ) {}
 
   userName: string;
@@ -48,10 +49,18 @@ export class HeaderComponent implements OnInit {
     this.userRole = JSON.parse(localStorage.getItem('user'))
       ? JSON.parse(localStorage.getItem('user'))['role']
       : '';
-  }
 
+   this.walletAddres = await this.connectService.getAddress();
+  }
+  async connectToWallet(){
+    $('#connect_to_wallet').modal('hide');
+   this.walletAddres = await this.connectService.getAddress();
+  };
   async ngAfterViewInit() {
-    this.walletAddres = await this.connectService.getAddress();
+//    this.walletAddres = await this.connectService.getAddress();
+  }
+  connectWallet() {
+    $('#connect_to_wallet').modal('show');
   }
 
   logoutAction() {
