@@ -21,9 +21,9 @@ export class ConnectService {
     } else {
       console.log(window.web3);
       if (typeof window.web3 !== 'undefined') {
-       this.web3 =  new Web3(window['ethereum'] || window.web3.currentProvider); // window.web3.currentProvider;
+      this.web3 =  new Web3(window['ethereum'] || window.web3.currentProvider); // window.web3.currentProvider;
       } else {
-       this.web3 = new Web3.providers.HttpProvider('http://localhost:8545');
+      this.web3 = new Web3.providers.HttpProvider('http://localhost:8545');
       }
 
       console.log('transfer.service :: constructor :: window.ethereum');

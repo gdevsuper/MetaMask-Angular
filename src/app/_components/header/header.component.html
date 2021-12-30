@@ -1,5 +1,5 @@
 <!-- header -->
-<header class="header" [ngClass]="{'header_top_position': walletAddres === ''}">
+<header class="header" [ngClass]="{'header_top_position': walletAddres == '' &&  userName !== ''}">
 	<div class="header__content_metamask">
 			<a *ngIf="userName && userName !== '' &&  walletAddres === ''" class="open-modal header__action-btn header__action-btn--signin" (click)="connectWallet()">
                       <span>Connect to Wallet</span>
